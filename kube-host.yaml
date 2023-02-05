@@ -39,7 +39,7 @@
   - name: Add Kubernetes apt key
     apt_key:
       url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-      dest: /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+      keyring: /etc/apt/keyrings/kubernetes-archive-keyring.gpg
       state: present
   - name: Add Kubernetes PPA
     apt_repository:
