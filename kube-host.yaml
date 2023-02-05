@@ -1,0 +1,38 @@
+---
+- name: Kubernetes Host
+  hosts: localhost
+  remote_user: root
+
+  tasks:
+  - name: Set timezone to America/Los_Angeles
+    community.general.timezone:
+      name: America/Los_Angeles
+  - name: Ensure that system is up to date
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+  - name: Allow apt over HTTPS
+    apt:
+      pkg:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+  - name: Add Docker apt key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+  - name: Add Docker PPA
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+      state: present
+  - name: Install Docker
+    apt:
+      name: docker-ce
+      update_cache: yes
+      state: present
+  - name: Adding user Chris to Docker
+    user: name=chris
+          groups=docker
+          append=yes

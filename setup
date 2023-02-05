@@ -9,3 +9,5 @@ if [ $? -ne 0 ]; then
 
 	pip3 install ansible==5.4.0
 fi
+
+ansible-playbook ./kube-host.yaml
