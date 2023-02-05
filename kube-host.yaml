@@ -36,3 +36,17 @@
     user: name=chris
           groups=docker
           append=yes
+  - name: Add Kubernetes apt key
+    apt_key:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      dest: /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+      state: present
+  - name: Add Kubernetes PPA
+    apt_repository:
+      repo: deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-focal main
+      state: present
+  - name: Install Kubectl
+    apt:
+      name: kubectl
+      update_cache: yes
+      state: present
