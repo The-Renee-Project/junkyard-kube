@@ -74,3 +74,16 @@
       replace: '# \1'
     when: kubernetes_installed is changed
   # ------ End Install Kubectl ---------
+
+  # ------ Begin Containerd Setup ------
+  - name: Remove containerd config file
+    file:
+      path: /etc/containerd/config.toml
+      state: absent
+    register: containerd_config_removed
+  - name: Restart containerd service
+    systemd:
+      state: restarted
+      daemon_reload: true
+      name: containerd
+  # ------ End Containerd Setup --------
