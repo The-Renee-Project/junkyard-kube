@@ -46,7 +46,7 @@
           append=yes
   # ------ End Install Docker -----------
 
-  # ------ Begin Install Kubectl --------
+  # ------ Begin Install Kubernetes Dependencies --------
   - name: Add Kubernetes apt key
     apt_key:
       url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -56,9 +56,10 @@
     apt_repository:
       repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
       state: present
-  - name: Install Kubectl
+  - name: Install Kubernetes Dependencies
     apt:
-      name: kubectl
-      update_cache: yes
-      state: present
+      pkg:
+        - kubelet
+        - kubeadm
+        - kubectl
   # ------ End Install Kubectl ---------
