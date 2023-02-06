@@ -87,3 +87,10 @@
       daemon_reload: true
       name: containerd
   # ------ End Containerd Setup --------
+
+  # ------ Begin Create Kube Cluster -----
+  - name: Kubeadm Init
+    shell: |
+      kubeadm init
+    when: kubernetes_installed
+  # ------ End Create Kube Cluster -------
