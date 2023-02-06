@@ -33,7 +33,7 @@
       state: present
   - name: Add Docker PPA
     apt_repository:
-      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+      repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu focal stable
       state: present
   - name: Install Docker
     apt:
