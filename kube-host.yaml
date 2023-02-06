@@ -47,17 +47,18 @@
   # ------ End Install Docker -----------
 
   # ------ Begin Install Kubectl --------
-  # - name: Add Kubernetes apt key
-  #   apt_key:
-  #     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-  #     state: present
-  # - name: Add Kubernetes PPA
-  #   apt_repository:
-  #     repo: deb [arch=amd64] https://apt.kubernetes.io/ kubernetes-focal main
-  #     state: present
-  # - name: Install Kubectl
-  #   apt:
-  #     name: kubectl
-  #     update_cache: yes
-  #     state: present
+  - name: Add Kubernetes apt key
+    apt_key:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      keyring: /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+      state: present
+  - name: Add Kubernetes PPA
+    apt_repository:
+      repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-focal main
+      state: present
+  - name: Install Kubectl
+    apt:
+      name: kubectl
+      update_cache: yes
+      state: present
   # ------ End Install Kubectl ---------
